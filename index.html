@@ -1,0 +1,80 @@
+
+<html lang="es" ng-app>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Perrera</title>
+        <!-- JavaScript Bundle with Popper -->
+        <!-- CSS only -->
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="https://csmpafotos.palmademallorca.es/entradas.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="https://csmpafotos.palmademallorca.es/cans_cat.js"></script>
+        <script src="index.js"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>      
+        <div ng-controller="myController">
+
+            <div class="sticky-top">
+                <div class="input-group filter">
+                    <input type="text" ng-model="filter.name" ng-change="doFilter();" ng-model-option="{debounce: 200}" class="form-control" placeholder="Buscar" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Género: {{generos[filter.gender].name}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a ng-repeat="gender in generos" ng-click="filter.gender = gender.value; doFilter();" class="dropdown-item" href="#">{{gender.name}}</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edad: {{edades[filter.age].name}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a ng-repeat="edad in edades" ng-click="filter.age = edad.value; doFilter();" class="dropdown-item" href="#">{{edad.name}}</a>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" ng-click="clearFilter()" >X</button>
+                    </div>
+                  </div>
+            </div>
+
+            <table class="table sticky-table" ng-init="init()">
+                <thead>
+                  <tr>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Raza</th>
+                    <th scope="col">Género</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Días</th>
+                    <th scope="col">Situación</th>
+                    <th scope="col">Características</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="animal in filtredElements | orderBy: 'totalDias'">
+                        <td><img class="animal-img" src="https://csmpafotos.palmademallorca.es/fotos/thumbs/thumb_{{animal.id}}"></td>
+                        <td>{{animal.raza}}</td>
+                        <td>{{animal.genero.name}}</td>
+                        <td>{{animal.edad.name}}</td>
+                        <td>{{animal.totalDias}}</td>
+                        <td>{{animal.situacion}}</td>
+                        <td>{{animal.caracteristicas}}</td>
+                    </tr>
+                </tbody>
+              </table>
+        </div>
+    </body>
+  </html>

@@ -1,0 +1,24 @@
+
+body{
+    /* padding: 10px; */
+}
+
+.animal-img {
+    width: 300px;
+}
+
+.sticky-table tr th {
+    position: sticky;
+    top: 67px;
+    background: white;
+}
+
+.filter {
+    padding: 15px;
+}
+
+.sticky-top {
+    position: sticky;
+    background: white;
+    top: 0;
+}
