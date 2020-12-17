@@ -81,8 +81,8 @@ function myController($scope) {
 
     $scope.clearFilter = function() {
         $scope.filter.name = "";
-        $scope.filter.gender = null;
-        $scope.filter.age = null;
+        $scope.filter.gender = 0;
+        $scope.filter.age = 0;
     }
 
     $scope.filtredElements = [];
