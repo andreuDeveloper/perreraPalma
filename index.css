@@ -4,17 +4,22 @@ body{
 }
 
 .animal-img {
-    width: 300px;
+    width: 280px;
+}
+
+.col-img {
+    width: 325px;
 }
 
 .sticky-table tr th {
     position: sticky;
     top: 67px;
-    background: white;
+    background: #e0f2ff;
 }
 
 .filter {
     padding: 15px;
+    background: #e0f2ff;
 }
 
 .sticky-top {
@@ -22,3 +27,26 @@ body{
     background: white;
     top: 0;
 }
+
+.no-border-right{
+    border-right: 0px;
+}
+
+.no-radius-right {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.no-radius-left {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.vertical-center tbody tr td {
+    vertical-align: middle;
+}
+
+.adoptat {
+    color: #a1282eab;
+}
+

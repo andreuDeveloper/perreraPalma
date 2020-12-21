@@ -20,6 +20,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
         <script type="text/javascript" charset="UTF-8" src="https://csmpafotos.palmademallorca.es/entradas.js"></script>
         <script type="text/javascript" charset="UTF-8" src="https://csmpafotos.palmademallorca.es/cans_cat.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="index.js"></script>
         <link rel="stylesheet" href="index.css">
     </head>
@@ -28,50 +29,78 @@
 
             <div class="sticky-top">
                 <div class="input-group filter">
-                    <input type="text" ng-model="filter.name" ng-change="doFilter();" ng-model-option="{debounce: 200}" class="form-control" placeholder="Buscar" aria-describedby="basic-addon2">
+                    <input type="text" ng-model="filter.name" ng-change="doFilter();" ng-model-option="{debounce: 200}" class="form-control" placeholder="Buscar ({{lastUpdate}})" aria-describedby="basic-addon2">
                     <div class="input-group-append">
+
+                        <!-- Especie -->
                         <div class="dropdown">
-                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Género: {{generos[filter.gender].name}}
+                            <button class="btn btn-info dropdown-toggle no-radius-right no-radius-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Especie ({{especies[filter.especie].name}})
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a ng-repeat="especie in especies" ng-click="filter.especie = especie.value; doFilter();" class="dropdown-item" href="#">{{especie.name}}</a>
+                            </div>
+                        </div>
+
+                        <!-- Genero -->
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle no-radius-right no-radius-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Género ({{generos[filter.gender].name}})
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a ng-repeat="gender in generos" ng-click="filter.gender = gender.value; doFilter();" class="dropdown-item" href="#">{{gender.name}}</a>
                             </div>
                         </div>
+
+                        <!-- Edad -->
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Edad: {{edades[filter.age].name}}
+                            <button class="btn btn-info dropdown-toggle no-radius-right no-radius-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edad ({{edades[filter.age].name}})
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a ng-repeat="edad in edades" ng-click="filter.age = edad.value; doFilter();" class="dropdown-item" href="#">{{edad.name}}</a>
                             </div>
                         </div>
-                        <button class="btn btn-danger" ng-click="clearFilter()" >X</button>
+
+                        <!-- Estado -->
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle no-radius-right no-radius-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Estado ({{situaciones[filter.situacion].name}})
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a ng-repeat="situacion in situaciones" ng-click="filter.situacion = situacion.value; doFilter();" class="dropdown-item" href="#">{{situacion.name}}</a>
+                            </div>
+                        </div>
+
+                        <!-- Clear filtro -->
+                        <button class="btn btn-danger" ng-click="clearFilter()"><i class="material-icons md-24">clear</i></button>
                     </div>
                   </div>
             </div>
 
-            <table class="table sticky-table" ng-init="init()">
+            <table class="table sticky-table vertical-center" ng-init="init()">
                 <thead>
                   <tr>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Raza</th>
-                    <th scope="col">Género</th>
-                    <th scope="col">Edad</th>
-                    <th scope="col">Días</th>
-                    <th scope="col">Situación</th>
-                    <th scope="col">Características</th>
+                    <th scope="col" class="col-img text-center">Foto</th>
+                    <th scope="col" class="text-center">Especie</th>
+                    <th scope="col" class="text-center">Raza</th>
+                    <th scope="col" class="text-center">Género</th>
+                    <th scope="col" class="text-center">Edad</th>
+                    <th scope="col" class="text-center">Estado</th>
+                    <th scope="col" class="text-center">Solicitudes</th>
+                    <th scope="col" class="text-center">Días</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="animal in filtredElements | orderBy: 'totalDias'">
-                        <td><img class="animal-img" src="https://csmpafotos.palmademallorca.es/fotos/thumbs/thumb_{{animal.id}}"></td>
-                        <td>{{animal.raza}}</td>
-                        <td>{{animal.genero.name}}</td>
-                        <td>{{animal.edad.name}}</td>
-                        <td>{{animal.totalDias}}</td>
-                        <td>{{animal.situacion}}</td>
-                        <td>{{animal.caracteristicas}}</td>
+                        <td class="col-img text-center"><img class="animal-img" src="https://csmpafotos.palmademallorca.es/fotos/thumbs/thumb_{{animal.id}}"></td>
+                        <td class="text-center">{{animal.especie.name}}</td>
+                        <td class="text-center">{{animal.raza}}</td>
+                        <td class="text-center">{{animal.genero.name}}</td>
+                        <td class="text-center">{{animal.edad.name}}</td>
+                        <td class="text-center">{{animal.situacion.name}}</td>
+                        <td class="text-center">{{animal.solicitudes}}</td>
+                        <td class="text-center">{{animal.totalDias}}</td>
                     </tr>
                 </tbody>
               </table>
